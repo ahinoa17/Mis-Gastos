@@ -1,14 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Agregar Gasto</title>
-    {% load static %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'gastos/style.css' %}">
+    <link rel="icon" href="{% static 'gastos/img/logo.png' %}">
 </head>
 <body>
-    <header>
+    <header class="animate-fade-in-down">
         <img src="{% static 'gastos/img/logo.png' %}" alt="Logo" class="logo">
         <h1>Agregar Gasto</h1>
         <nav>
@@ -17,21 +18,21 @@
         </nav>
     </header>
     <main>
-        <section class="form-section">
-            <form method="post" id="gastoForm">
+        <section class="form-section animate-fade-in-up">
+            <form method="post" id="gastoForm" class="animate-fade-in-left">
                 {% csrf_token %}
                 <label for="descripcion">Descripción:</label>
                 <input type="text" name="descripcion" id="descripcion" placeholder="Ej: Comida rápida" required>
                 <label for="monto">Monto:</label>
                 <input type="number" step="0.01" name="monto" id="monto" placeholder="Ej: 120.50" required>
-                <button type="submit">Registrar Gasto</button>
+                <button type="submit" class="cta-btn">Registrar Gasto</button>
             </form>
-            <img src="{% static 'gastos/img/wallet.jpg' %}" alt="Wallet" class="form-img">
+            <img src="{% static 'gastos/img/wallet.jpg' %}" alt="Wallet" class="form-img img-animada">
         </section>
-        <div id="form-message"></div>
+        <div id="form-message" class="animate-fade-in-up"></div>
     </main>
-    <footer>
-        <p>&copy; 2025 Mis Gastos</p>
+    <footer class="animate-fade-in-up">
+        <p>Mis Gastos</p>
     </footer>
     <script src="{% static 'gastos/script.js' %}"></script>
 </body>

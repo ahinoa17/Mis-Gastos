@@ -1,14 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Listado de Gastos</title>
-    {% load static %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'gastos/style.css' %}">
+    <link rel="icon" href="{% static 'gastos/img/logo.png' %}">
 </head>
 <body>
-    <header>
+    <header class="animate-fade-in-down">
         <img src="{% static 'gastos/img/logo.png' %}" alt="Logo" class="logo">
         <h1>Gastos Registrados</h1>
         <nav>
@@ -17,11 +18,11 @@
         </nav>
     </header>
     <main>
-        <section class="list-section">
+        <section class="list-section animate-fade-in-left">
             <h2>Historial de Gastos</h2>
             <ul class="gastos-list">
                 {% for gasto in gastos %}
-                    <li class="gasto-item">
+                    <li class="gasto-item animate-fade-in-up" style="animation-delay: '{{ forloop.counter0 }}0ms';">
                         <div class="gasto-info">
                             <span class="descripcion">{{ gasto.descripcion }}</span>
                             <span class="fecha">{{ gasto.fecha }}</span>
@@ -33,16 +34,16 @@
                 {% endfor %}
             </ul>
         </section>
-        <section class="summary-section">
+        <section class="summary-section animate-fade-in-right">
             <h2>Total Gastado</h2>
             <div class="total-box">
-                ${{ gastos|sum:"monto" }}
+                ${% firstof total_gastado "0.00" %}
             </div>
-            <img src="{% static 'gastos/img/summary.jpg' %}" alt="Resumen" class="summary-img">
+            <img src="{% static 'gastos/img/summary.jpg' %}" alt="Resumen" class="summary-img img-animada">
         </section>
     </main>
-    <footer>
-        <p>&copy; 2025 Mis Gastos</p>
+    <footer class="animate-fade-in-up">
+        <p>Mis Gastos</p>
     </footer>
 </body>
 </html>

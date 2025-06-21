@@ -1,15 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Bienvenido a Mis Gastos</title>
-    {% load static %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'gastos/style.css' %}">
     <link rel="icon" href="{% static 'gastos/img/logo.png' %}">
 </head>
 <body>
-    <header>
+    <header class="animate-fade-in-down">
         <img src="{% static 'gastos/img/logo.png' %}" alt="Logo" class="logo">
         <h1>Mis Gastos</h1>
         <nav>
@@ -19,17 +19,25 @@
         </nav>
     </header>
     <main>
-        <section class="hero">
-            <div>
-                <h2>¡Gestiona tus finanzas como un profesional!</h2>
-                <p>Lleva el control de tus gastos con estilo y eficiencia. Visualiza, agrega y revisa tus movimientos fácilmente.</p>
-                <a href="/formulario/" class="cta-btn">Comienza Ahora</a>
+        <section class="hero hero-uni">
+            <div class="hero-texto">
+                <h2 class="hero-titulo animate-fade-in-up">
+                    Toma el control de tus finanzas y alcanza tus metas.
+                </h2>
+                <p class="hero-desc animate-fade-in-up" style="animation-delay:0.3s;">
+                    Organiza tus gastos, visualiza tu progreso y construye el futuro que deseas.
+                </p>
+                <a href="/formulario/" class="cta-btn hero-btn animate-pop">¡Empieza ahora!</a>
             </div>
-            <img src="{% static 'gastos/img/finance.jpg' %}" alt="Finanzas personales" class="hero-img">
+            <div class="hero-imagen">
+                <img src="{% static 'gastos/img/finance.jpg' %}" alt="Finanzas personales" class="img-animada"/>
+                <div class="hero-circulo"></div>
+                <div class="hero-resplandor"></div>
+            </div>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2025 Mis Gastos - Hecho por ahinoa17</p>
+    <footer class="animate-fade-in-up">
+        <p>Mis Gastos</p>
     </footer>
 </body>
 </html>
