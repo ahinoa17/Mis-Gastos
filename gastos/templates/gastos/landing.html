@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenido a Mis Gastos</title>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'gastos/style.css' %}">
+    <link rel="icon" href="{% static 'gastos/img/logo.png' %}">
+</head>
+<body>
+    <header>
+        <img src="{% static 'gastos/img/logo.png' %}" alt="Logo" class="logo">
+        <h1>Mis Gastos</h1>
+        <nav>
+            <a href="/">Inicio</a>
+            <a href="/formulario/">Agregar Gasto</a>
+            <a href="/gastos/">Ver Gastos</a>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div>
+                <h2>¡Gestiona tus finanzas como un profesional!</h2>
+                <p>Lleva el control de tus gastos con estilo y eficiencia. Visualiza, agrega y revisa tus movimientos fácilmente.</p>
+                <a href="/formulario/" class="cta-btn">Comienza Ahora</a>
+            </div>
+            <img src="{% static 'gastos/img/finance.jpg' %}" alt="Finanzas personales" class="hero-img">
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Mis Gastos - Hecho por ahinoa17</p>
+    </footer>
+</body>
+</html>

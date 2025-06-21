@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Gasto</title>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'gastos/style.css' %}">
+</head>
+<body>
+    <header>
+        <img src="{% static 'gastos/img/logo.png' %}" alt="Logo" class="logo">
+        <h1>Agregar Gasto</h1>
+        <nav>
+            <a href="/">Inicio</a>
+            <a href="/gastos/">Ver Gastos</a>
+        </nav>
+    </header>
+    <main>
+        <section class="form-section">
+            <form method="post" id="gastoForm">
+                {% csrf_token %}
+                <label for="descripcion">Descripción:</label>
+                <input type="text" name="descripcion" id="descripcion" placeholder="Ej: Comida rápida" required>
+                <label for="monto">Monto:</label>
+                <input type="number" step="0.01" name="monto" id="monto" placeholder="Ej: 120.50" required>
+                <button type="submit">Registrar Gasto</button>
+            </form>
+            <img src="{% static 'gastos/img/wallet.jpg' %}" alt="Wallet" class="form-img">
+        </section>
+        <div id="form-message"></div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Mis Gastos</p>
+    </footer>
+    <script src="{% static 'gastos/script.js' %}"></script>
+</body>
+</html>

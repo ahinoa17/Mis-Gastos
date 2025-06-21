@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Gastos</title>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'gastos/style.css' %}">
+</head>
+<body>
+    <header>
+        <img src="{% static 'gastos/img/logo.png' %}" alt="Logo" class="logo">
+        <h1>Gastos Registrados</h1>
+        <nav>
+            <a href="/">Inicio</a>
+            <a href="/formulario/">Agregar Gasto</a>
+        </nav>
+    </header>
+    <main>
+        <section class="list-section">
+            <h2>Historial de Gastos</h2>
+            <ul class="gastos-list">
+                {% for gasto in gastos %}
+                    <li class="gasto-item">
+                        <div class="gasto-info">
+                            <span class="descripcion">{{ gasto.descripcion }}</span>
+                            <span class="fecha">{{ gasto.fecha }}</span>
+                        </div>
+                        <span class="monto">${{ gasto.monto }}</span>
+                    </li>
+                {% empty %}
+                    <li>No hay gastos registrados aún.</li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section class="summary-section">
+            <h2>Total Gastado</h2>
+            <div class="total-box">
+                ${{ gastos|sum:"monto" }}
+            </div>
+            <img src="{% static 'gastos/img/summary.jpg' %}" alt="Resumen" class="summary-img">
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Mis Gastos</p>
+    </footer>
+</body>
+</html>
