@@ -4,36 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Agregar Gasto</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'gastos/style.css' %}">
-    <link rel="icon" href="{% static 'gastos/img/logo.png' %}">
 </head>
 <body>
-    <header class="animate-fade-in-down">
-        <img src="{% static 'gastos/img/logo.png' %}" alt="Logo" class="logo">
-        <h1>Agregar Gasto</h1>
-        <nav>
-            <a href="/">Inicio</a>
-            <a href="/gastos/">Ver Gastos</a>
-        </nav>
-    </header>
-    <main>
-        <section class="form-section animate-fade-in-up">
-            <form method="post" id="gastoForm" class="animate-fade-in-left">
-                {% csrf_token %}
-                <label for="descripcion">Descripción:</label>
-                <input type="text" name="descripcion" id="descripcion" placeholder="Ej: Comida rápida" required>
-                <label for="monto">Monto:</label>
-                <input type="number" step="0.01" name="monto" id="monto" placeholder="Ej: 120.50" required>
-                <button type="submit" class="cta-btn">Registrar Gasto</button>
-            </form>
-            <img src="{% static 'gastos/img/wallet.jpg' %}" alt="Wallet" class="form-img img-animada">
-        </section>
-        <div id="form-message" class="animate-fade-in-up"></div>
-    </main>
-    <footer class="animate-fade-in-up">
-        <p>Mis Gastos</p>
-    </footer>
-    <script src="{% static 'gastos/script.js' %}"></script>
+    <div class="page-card agregar-gasto-card">
+        <div class="agregar-gasto-grid">
+            <div class="agregar-gasto-ilu">
+                <img src="{% static 'gastos/img/agregar-gasto.png' %}" alt="Agregar gasto">
+            </div>
+            <div class="agregar-gasto-form">
+                <header>
+                    <h1>Agregar Nuevo Gasto</h1>
+                    <nav>
+                        <a href="{% url 'landing' %}" class="btn-principal">Inicio</a>
+                        <a href="{% url 'listado_gastos' %}" class="btn-secundario">Historial</a>
+                    </nav>
+                </header>
+                <section class="form-section">
+                    <form id="gastoForm" action="" method="post" class="form-gasto">
+                        {% csrf_token %}
+                        <div class="campo-form">
+                            <label for="descripcion">Descripción</label>
+                            <input type="text" name="descripcion" id="descripcion" required maxlength="120" placeholder="Ej: Supermercado, Taxi, etc.">
+                        </div>
+                        <div class="campo-form">
+                            <label for="monto">Monto gastado</label>
+                            <input type="number" step="0.01" min="0" name="monto" id="monto" required placeholder="Ej: 120.50">
+                        </div>
+                        <div class="acciones-form">
+                            <button type="submit" class="btn-principal">Agregar Gasto</button>
+                            <a href="{% url 'listado_gastos' %}" class="btn-secundario">Cancelar</a>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

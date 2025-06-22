@@ -3,47 +3,46 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Listado de Gastos</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Gastos</title>
     <link rel="stylesheet" href="{% static 'gastos/style.css' %}">
-    <link rel="icon" href="{% static 'gastos/img/logo.png' %}">
 </head>
 <body>
-    <header class="animate-fade-in-down">
-        <img src="{% static 'gastos/img/logo.png' %}" alt="Logo" class="logo">
-        <h1>Gastos Registrados</h1>
-        <nav>
-            <a href="/">Inicio</a>
-            <a href="/formulario/">Agregar Gasto</a>
-        </nav>
-    </header>
-    <main>
-        <section class="list-section animate-fade-in-left">
-            <h2>Historial de Gastos</h2>
+    <div class="page-card historial-gastos-card">
+        <div class="historial-gastos-ilu">
+            <img src="{% static 'gastos/img/historial-gastos.png' %}" alt="Historial de gastos">
+        </div>
+        <header>
+            <h1>Historial de Gastos</h1>
+            <nav>
+                <a href="{% url 'landing' %}" class="btn-principal">Inicio</a>
+                <a href="{% url 'formulario_gasto' %}" class="btn-secundario">Agregar Gasto</a>
+            </nav>
+        </header>
+        <section class="resumen">
+            <div class="total-gastado">
+                <span>Total gastado:</span>
+                <span class="monto-total">${{ total_gastado }}</span>
+            </div>
+        </section>
+        <section class="historial">
+            <h2>Mis gastos</h2>
             <ul class="gastos-list">
                 {% for gasto in gastos %}
-                    <li class="gasto-item animate-fade-in-up" style="animation-delay: '{{ forloop.counter0 }}0ms';">
+                    <li class="gasto-item">
                         <div class="gasto-info">
                             <span class="descripcion">{{ gasto.descripcion }}</span>
-                            <span class="fecha">{{ gasto.fecha }}</span>
+                            <span class="fecha">{{ gasto.fecha|date:"d/m/Y" }}</span>
                         </div>
                         <span class="monto">${{ gasto.monto }}</span>
                     </li>
                 {% empty %}
-                    <li>No hay gastos registrados aún.</li>
+                    <li class="gasto-vacio">
+                        <img src="{% static 'gastos/img/sin-gastos.png' %}" alt="Sin gastos">
+                        <div>No hay gastos registrados aún.</div>
+                    </li>
                 {% endfor %}
             </ul>
         </section>
-        <section class="summary-section animate-fade-in-right">
-            <h2>Total Gastado</h2>
-            <div class="total-box">
-                ${% firstof total_gastado "0.00" %}
-            </div>
-            <img src="{% static 'gastos/img/summary.jpg' %}" alt="Resumen" class="summary-img img-animada">
-        </section>
-    </main>
-    <footer class="animate-fade-in-up">
-        <p>Mis Gastos</p>
-    </footer>
+    </div>
 </body>
 </html>

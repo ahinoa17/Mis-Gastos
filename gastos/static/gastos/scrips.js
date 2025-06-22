@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Animación de aparición inicial
+    // Animaciones de aparición inicial
     document.querySelectorAll('.animate-fade-in-up, .animate-fade-in-down, .animate-fade-in-left, .animate-fade-in-right, .animate-pop')
         .forEach(function(el, idx) {
-            el.style.animationDelay = (el.style.animationDelay || '') || (0.05 * idx) + 's';
+            el.style.animationDelay = el.style.animationDelay || (0.05 * idx) + 's';
         });
 
-    // Validación y feedback en el formulario
+    // Validación y feedback en el formulario de gasto
     const form = document.getElementById('gastoForm');
     const msg = document.getElementById('form-message');
     if (form && msg) {

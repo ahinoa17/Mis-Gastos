@@ -3,41 +3,59 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Bienvenido a Mis Gastos</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'gastos/style.css' %}">
+    <title>Mis Gastos - Controla tus Finanzas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="{% static 'gastos/img/logo.png' %}">
+    <link rel="stylesheet" href="{% static 'gastos/style.css' %}">
 </head>
 <body>
-    <header class="animate-fade-in-down">
-        <img src="{% static 'gastos/img/logo.png' %}" alt="Logo" class="logo">
-        <h1>Mis Gastos</h1>
+    <header class="landing-header">
+        <img src="{% static 'gastos/img/logo.png' %}" alt="Logo Mis Gastos" class="logo">
         <nav>
-            <a href="/">Inicio</a>
-            <a href="/formulario/">Agregar Gasto</a>
-            <a href="/gastos/">Ver Gastos</a>
+            <a href="{% url 'landing' %}">Inicio</a>
+            <a href="{% url 'formulario_gasto' %}">Agregar Gasto</a>
+            <a href="{% url 'listado_gastos' %}">Historial</a>
         </nav>
     </header>
     <main>
-        <section class="hero hero-uni">
-            <div class="hero-texto">
-                <h2 class="hero-titulo animate-fade-in-up">
-                    Toma el control de tus finanzas y alcanza tus metas.
-                </h2>
-                <p class="hero-desc animate-fade-in-up" style="animation-delay:0.3s;">
-                    Organiza tus gastos, visualiza tu progreso y construye el futuro que deseas.
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Controla tus gastos<br>y alcanza tus metas</h1>
+                <p>
+                    Lleva un seguimiento claro y ágil de todos tus movimientos.<br>
+                    Visualiza tu resumen y toma mejores decisiones financieras.<br>
+                    Empieza a gestionar tus finazas personales de forma sencilla y efectiva!
                 </p>
-                <a href="/formulario/" class="cta-btn hero-btn animate-pop">¡Empieza ahora!</a>
+                <a href="{% url 'formulario_gasto' %}" class="btn-principal">Empieza ahora</a>
+                <div class="landing-stats">
+                    <span>Gastos registrados: <b>{{ gastos_count }}</b></span>
+                    <span>Total gastado: <b>${{ total_gastado }}</b></span>
+                </div>
             </div>
-            <div class="hero-imagen">
-                <img src="{% static 'gastos/img/finance.jpg' %}" alt="Finanzas personales" class="img-animada"/>
-                <div class="hero-circulo"></div>
-                <div class="hero-resplandor"></div>
+            <div class="hero-image">
+                <img src="{% static 'gastos/img/finance.jpg' %}" alt="Finanzas personales">
+            </div>
+        </section>
+        <section class="features-section">
+            <div class="features-title">¿Por qué elegir nuestra herramienta?</div>
+            <div class="features-list">
+                <div class="feature-card">
+                    <img src="{% static 'gastos/img/wallet.jpg' %}" alt="Agrega gastos" />
+                    <h3>Agrega gastos fácil</h3>
+                    <p>Rápido, desde cualquier lugar y sin complicaciones.</p>
+                </div>
+                <div class="feature-card">
+                    <img src="{% static 'gastos/img/summary.jpg' %}" alt="Resumen automático" />
+                    <h3>Resumen instantáneo</h3>
+                    <p>Consulta tu total gastado y tus registros en segundos.</p>
+                </div>
+                <div class="feature-card">
+                    <img src="{% static 'gastos/img/finance.jpg' %}" alt="Progreso financiero" />
+                    <h3>Practico y profesional</h3>
+                    <p>Presentación clara y lista para gestionar tus gastos.</p>
+                </div>
             </div>
         </section>
     </main>
-    <footer class="animate-fade-in-up">
-        <p>Mis Gastos</p>
-    </footer>
 </body>
 </html>
