@@ -13,20 +13,20 @@
 \usepackage{amssymb}
 \usepackage{float}
 
-% Configuración de encabezados y pies de página
+% Encabezados y pies de página
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{Pontificia Universidad Católica del Ecuador}
 \fancyhead[R]{Manual del Sistema}
 \fancyfoot[C]{\thepage}
 
-% Títulos bonitos
+% Títulos destacados
 \titleformat{\section}
   {\normalfont\Large\bfseries\color{teal}}{\thesection}{1em}{}
 \titleformat{\subsection}
   {\normalfont\large\bfseries\color{black}}{\thesubsection}{1em}{}
 
-% Configuración listings para código
+% Configuración para bloques de código
 \lstset{
     backgroundcolor=\color{gray!10},
     frame=single,
@@ -49,7 +49,7 @@
 \begin{titlepage}
 \begin{flushright}   
  \vspace*{-2cm}
- \includegraphics[height=2.5cm]{logo puce.png} 
+ \includegraphics[height=2.5cm]{Imagenes/logo puce.png} 
 \end{flushright}
  \centering
  \vspace*{1cm}
@@ -68,64 +68,131 @@
 \newpage
 
 \section{Introducción}
-El presente manual tiene como propósito guiar al usuario en la instalación, configuración, uso y comprobación del sistema \textbf{Mis Gastos}. Su objetivo principal es que cualquier persona que siga estos pasos logre implementar el sistema correctamente y pueda verificar su funcionamiento mediante evidencias visuales.
+Este manual es una guía paso a paso para crear el sistema \textbf{Mis Gastos} usando Django, permitiendo registrar, visualizar y administrar tus gastos personales. Cada sección explica con detalle los comandos, archivos y estructura del proyecto, asegurando que cualquier persona pueda replicarlo y obtener exactamente el mismo resultado.
 
-\section{Requerimientos previos}
-Antes de comenzar, asegúrate de tener instalado en tu sistema lo siguiente:
-
+\section{Requisitos previos}
+Antes de empezar, verifica que tienes instalado:
 \begin{itemize}
     \item \textbf{Python 3.9 o superior}
-    \item \textbf{Pip} (gestor de paquetes de Python)
-    \item \textbf{Git} (opcional, para clonar el repositorio)
-    \item \textbf{Un editor de código} (recomendado: VS Code, PyCharm, Sublime Text)
-    \item \textbf{Navegador web} (Chrome, Firefox, Edge, etc.)
+    \item \textbf{pip} (gestor de paquetes de Python)
+    \item \textbf{Un editor de código} (VS Code, PyCharm, Sublime Text, etc.)
+    \item \textbf{Git} (opcional)
+    \item \textbf{Navegador web}
 \end{itemize}
+\textbf{Consejo:} Trabaja siempre en un \textbf{entorno virtual} para evitar problemas de dependencias.
 
-\textbf{Nota:} Se recomienda el uso de un entorno virtual para evitar conflictos de dependencias.
+\section{¿Qué es cada carpeta y archivo?}
+\begin{tabular}{|l|l|}
+\hline
+Archivo/Carpeta & Descripción \\
+\hline
+manage.py & Comando principal para gestionar Django \\
+misgastos/ & Configuración global del proyecto Django \\
+gastos/ & Nuestra app principal para gastos \\
+gastos/templates/gastos/ & Archivos HTML (plantillas) de la app \\
+gastos/static/gastos/ & Archivos CSS y JS de la app \\
+db.sqlite3 & Base de datos local de Django \\
+.venv/ & Entorno virtual de Python \\
+\hline
+\end{tabular}
 
-\section{Instalación y configuración}
-
-\subsection{1. Clonar el repositorio o descargar el código}
-
-Puedes clonar el repositorio si está en GitHub, o simplemente crear una carpeta y copiar los archivos proporcionados en este manual.
-
+\section{Creación manual de carpetas esenciales}
+Django NO crea automáticamente las carpetas de plantillas ni estáticos en la app. Debes crearlas así:
 \begin{lstlisting}[language=bash]
-git clone https://github.com/tu_usuario/tu_repositorio.git
-cd tu_repositorio
+mkdir -p gastos/templates/gastos
+mkdir -p gastos/static/gastos
+\end{lstlisting}
+\textbf{Nota:} En Windows, usa el explorador o:
+\begin{lstlisting}[language=bash]
+mkdir gastos\templates\gastos
+mkdir gastos\static\gastos
 \end{lstlisting}
 
-\subsection{2. Crear y activar entorno virtual}
+\section{Creación del proyecto y entorno de trabajo}
 
-\begin{lstlisting}[language=bash]
-python -m venv .venv
-# Activar en Windows:
-.venv\Scripts\activate
-# Activar en Mac/Linux:
-source .venv/bin/activate
-\end{lstlisting}
+\subsection{1. Crear carpeta y entorno virtual}
+\begin{enumerate}
+    \item Abre la terminal y ejecuta:
+    \begin{lstlisting}[language=bash]
+    mkdir mis-gastos
+    cd mis-gastos
+    python -m venv .venv
+    \end{lstlisting}
+    \item Activa el entorno virtual:
+    \begin{itemize}
+        \item En Windows:
+        \begin{lstlisting}[language=bash]
+        .venv\Scripts\activate
+        \end{lstlisting}
+        \item En Mac/Linux:
+        \begin{lstlisting}[language=bash]
+        source .venv/bin/activate
+        \end{lstlisting}
+    \end{itemize}
+\end{enumerate}
 
-\subsection{3. Instalar Django}
-
+\subsection{2. Instalar Django}
 \begin{lstlisting}[language=bash]
 pip install django
 \end{lstlisting}
 
-\subsection{4. Estructura de carpetas del proyecto}
+\subsection{3. Crear el proyecto Django}
+\begin{lstlisting}[language=bash]
+django-admin startproject misgastos .
+\end{lstlisting}
 
-\begin{itemize}
-    \item \textbf{mis-gastos/} (carpeta principal del proyecto)
-    \item \textbf{gastos/} (app principal)
-    \item \textbf{gastos/static/gastos/} (CSS, JS, imágenes)
-    \item \textbf{gastos/templates/gastos/} (archivos HTML)
-\end{itemize}
+\subsection{4. Crear la aplicación}
+\begin{lstlisting}[language=bash]
+python manage.py startapp gastos
+\end{lstlisting}
 
-Coloca las imágenes, archivos CSS y JS en las rutas señaladas.
+\subsection{5. Estructura de carpetas esperada}
+\begin{lstlisting}
+mis-gastos/
+├─ misgastos/
+│   ├─ __init__.py
+│   ├─ asgi.py
+│   ├─ settings.py
+│   ├─ urls.py
+│   └─ wsgi.py
+├─ gastos/
+│   ├─ __init__.py
+│   ├─ admin.py
+│   ├─ apps.py
+│   ├─ migrations/
+│   ├─ models.py
+│   ├─ tests.py
+│   ├─ views.py
+│   └─ (otros archivos)
+├─ manage.py
+└─ .venv/
+\end{lstlisting}
 
+\section{Configuración inicial}
 
-\section{Estructura de archivos y código fuente}
+\subsection{1. Registrar la app en \texttt{settings.py}}
+Abre \texttt{misgastos/settings.py} y en \texttt{INSTALLED\_APPS} añade:
+\begin{lstlisting}[language=Python]
+INSTALLED_APPS = [
+    # apps de django
+    'gastos',  # nuestra app
+]
+\end{lstlisting}
 
-\subsection{1. models.py}
+\subsection{2. Configurar archivos estáticos}
+En el mismo archivo, define:
+\begin{lstlisting}[language=Python]
+STATIC_URL = '/static/'
+import os
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'gastos/static'),
+]
+\end{lstlisting}
 
+\section{Modelos y base de datos}
+
+\subsection{1. Definir el modelo de gastos}
+En \texttt{gastos/models.py}:
 \begin{lstlisting}[language=Python]
 from django.db import models
 
@@ -133,10 +200,21 @@ class Gasto(models.Model):
     descripcion = models.CharField(max_length=120)
     monto = models.DecimalField(max_digits=10, decimal_places=2)
     fecha = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.descripcion}: ${self.monto}"
 \end{lstlisting}
 
-\subsection{2. views.py}
+\subsection{2. Migrar la base de datos}
+\begin{lstlisting}[language=bash]
+python manage.py makemigrations
+python manage.py migrate
+\end{lstlisting}
 
+\section{Vistas y rutas}
+
+\subsection{1. Crear las vistas}
+En \texttt{gastos/views.py}:
 \begin{lstlisting}[language=Python]
 from django.shortcuts import render, redirect
 from .models import Gasto
@@ -149,10 +227,23 @@ def landing(request):
         'gastos_count': gastos_count,
         'total_gastado': f"{total_gastado:.2f}"
     })
+
+def formulario_gasto(request):
+    if request.method == "POST":
+        descripcion = request.POST.get("descripcion")
+        monto = request.POST.get("monto")
+        if descripcion and monto:
+            Gasto.objects.create(descripcion=descripcion, monto=monto)
+            return redirect('listado_gastos')
+    return render(request, 'gastos/formulario.html')
+
+def listado_gastos(request):
+    gastos = Gasto.objects.all().order_by('-fecha')
+    return render(request, 'gastos/listado.html', {"gastos": gastos})
 \end{lstlisting}
 
-\subsection{3. urls.py (de la app gastos)}
-
+\subsection{2. Definir las rutas de la app}
+Crea \texttt{gastos/urls.py}:
 \begin{lstlisting}[language=Python]
 from django.urls import path
 from . import views
@@ -164,8 +255,8 @@ urlpatterns = [
 ]
 \end{lstlisting}
 
-\subsection{4. urls.py (del proyecto principal)}
-
+\subsection{3. Rutas del proyecto}
+En \texttt{misgastos/urls.py}:
 \begin{lstlisting}[language=Python]
 from django.contrib import admin
 from django.urls import path, include
@@ -176,67 +267,105 @@ urlpatterns = [
 ]
 \end{lstlisting}
 
-\subsection{5. settings.py (fragmento para archivos estáticos)}
+\section{Plantillas HTML}
 
-\begin{lstlisting}[language=Python]
-STATIC_URL = '/static/'
-\end{lstlisting}
+Crea la carpeta \texttt{gastos/templates/gastos/}. Allí, agrega los siguientes archivos:
 
-\section{Archivos de plantilla (HTML)}
-
-\subsection{landing.html}
+\subsection{1. landing.html}
 \begin{lstlisting}[language=HTML]
-<!-- Fragmento representativo de landing.html -->
-<div class="hero-content">
-    <h1>Controla tus gastos<br>y alcanza tus metas</h1>
-    <p>Lleva un seguimiento claro y ágil de todos tus movimientos.</p>
-    <a href="{% url 'formulario_gasto' %}" class="btn-principal">Empieza ahora</a>
-</div>
-\end{lstlisting}
-
-\subsection{formulario.html}
-\begin{lstlisting}[language=HTML]
-<!-- Fragmento representativo de formulario.html -->
-<form id="gastoForm" action="" method="post" class="form-gasto">
-    {% csrf_token %}
-    <div class="campo-form">
-        <label for="descripcion">Descripción</label>
-        <input type="text" name="descripcion" id="descripcion" required>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Gastos - Inicio</title>
+    <link rel="stylesheet" href="/static/gastos/style.css">
+</head>
+<body>
+    <div class="hero-content">
+        <h1>Controla tus gastos<br>y alcanza tus metas</h1>
+        <p>Lleva un seguimiento claro y ágil de todos tus movimientos.</p>
+        <a href="{% url 'formulario_gasto' %}" class="btn-principal">Empieza ahora</a>
+        <p>Total gastado: ${{ total_gastado }}</p>
+        <p>Gastos registrados: {{ gastos_count }}</p>
+        <a href="{% url 'listado_gastos' %}">Ver historial</a>
     </div>
-    <div class="campo-form">
-        <label for="monto">Monto gastado</label>
-        <input type="number" step="0.01" name="monto" id="monto" required>
-    </div>
-    <div id="form-message"></div>
-    <button type="submit" class="btn-principal">Agregar Gasto</button>
-</form>
+</body>
+</html>
 \end{lstlisting}
 
-\subsection{listado.html}
+\subsection{2. formulario.html}
 \begin{lstlisting}[language=HTML]
-<!-- Fragmento representativo de listado.html -->
-<ul class="gastos-list">
-    {% for gasto in gastos %}
-        <li class="gasto-item">
-            <span class="descripcion">{{ gasto.descripcion }}</span>
-            <span class="monto">${{ gasto.monto }}</span>
-        </li>
-    {% empty %}
-        <li class="gasto-vacio">No hay gastos registrados aún.</li>
-    {% endfor %}
-</ul>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar gasto</title>
+    <link rel="stylesheet" href="/static/gastos/style.css">
+    <script src="/static/gastos/scrips.js" defer></script>
+</head>
+<body>
+    <form id="gastoForm" action="" method="post" class="form-gasto">
+        {% csrf_token %}
+        <div class="campo-form">
+            <label for="descripcion">Descripción</label>
+            <input type="text" name="descripcion" id="descripcion" required>
+        </div>
+        <div class="campo-form">
+            <label for="monto">Monto gastado</label>
+            <input type="number" step="0.01" name="monto" id="monto" required>
+        </div>
+        <div id="form-message"></div>
+        <button type="submit" class="btn-principal">Agregar Gasto</button>
+    </form>
+    <a href="{% url 'listado_gastos' %}">Ver historial</a>
+</body>
+</html>
 \end{lstlisting}
 
-\section{CSS (style.css)}
+\subsection{3. listado.html}
+\begin{lstlisting}[language=HTML]
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial de gastos</title>
+    <link rel="stylesheet" href="/static/gastos/style.css">
+</head>
+<body>
+    <h2>Historial de gastos</h2>
+    <ul class="gastos-list">
+        {% for gasto in gastos %}
+            <li class="gasto-item">
+                <span class="descripcion">{{ gasto.descripcion }}</span>
+                <span class="monto">${{ gasto.monto }}</span>
+                <span class="fecha">{{ gasto.fecha }}</span>
+            </li>
+        {% empty %}
+            <li class="gasto-vacio">No hay gastos registrados aún.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'formulario_gasto' %}">Agregar nuevo gasto</a>
+</body>
+</html>
+\end{lstlisting}
 
+\section{Archivos estáticos}
+
+Crea la carpeta \texttt{gastos/static/gastos/} y agrega:
+
+\subsection{1. style.css}
 \begin{lstlisting}[language=CSS]
-/* Fragmento representativo de style.css */
 body {
     background: #f4f7fb;
     font-family: 'Inter', Arial, sans-serif;
     color: #253245;
+    margin: 0;
+    padding: 0;
 }
-
+.hero-content {
+    text-align: center;
+    margin-top: 60px;
+}
 .btn-principal {
     background: linear-gradient(90deg, #1abc9c 0%, #19857b 100%);
     color: #fff;
@@ -244,11 +373,51 @@ body {
     font-size: 1.25rem;
     font-weight: 700;
     border: none;
+    padding: 10px 25px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+.form-gasto {
+    max-width: 400px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px 30px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.06);
+}
+.campo-form {
+    margin-bottom: 18px;
+}
+.campo-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+.campo-form input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+.gastos-list {
+    list-style: none;
+    padding: 0;
+    max-width: 450px;
+    margin: 40px auto;
+}
+.gasto-item {
+    background: #eaf0f6;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 \end{lstlisting}
 
-\section{JavaScript (scripts.js)}
-
+\subsection{2. scrips.js}
 \begin{lstlisting}[language=JavaScript]
 document.addEventListener('DOMContentLoaded', function () {
     // Validación y feedback en el formulario de gasto
@@ -269,56 +438,119 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 \end{lstlisting}
 
-\section{Ejecución del proyecto}
+\section{Panel de administración (opcional)}
 
-\subsection{1. Migrar la base de datos}
+\begin{enumerate}
+    \item Crear usuario administrador:
+    \begin{lstlisting}[language=bash]
+    python manage.py createsuperuser
+    \end{lstlisting}
+    \item Registrar el modelo en \texttt{gastos/admin.py}:
+    \begin{lstlisting}[language=Python]
+    from django.contrib import admin
+    from .models import Gasto
 
-Antes de utilizar la aplicación, es necesario preparar la base de datos para que Django cree las tablas necesarias según los modelos definidos en el proyecto. Para ello, debes ejecutar los siguientes comandos en la terminal:
+    admin.site.register(Gasto)
+    \end{lstlisting}
+    \item Accede a \url{http://127.0.0.1:8000/admin} usando tu usuario admin.
+\end{enumerate}
 
-\begin{lstlisting}[language=bash]
-python manage.py makemigrations
-python manage.py migrate
-\end{lstlisting}
+\section{Ejecución y pruebas}
 
-\textbf{¿Qué hacen estos comandos?}
-
-\begin{itemize}
-    \item \texttt{makemigrations}: Prepara archivos de migración que describen los cambios necesarios en la base de datos a partir de los modelos de Python.
-    \item \texttt{migrate}: Aplica esos cambios, creando o actualizando las tablas en la base de datos real.
-\end{itemize}
-
-Es un paso fundamental para que la aplicación pueda guardar y mostrar información correctamente.
-
-\subsection{2. Ejecutar el servidor}
-
+\subsection{1. Ejecutar el servidor}
 \begin{lstlisting}[language=bash]
 python manage.py runserver
 \end{lstlisting}
+Abre tu navegador y accede a: \url{http://127.0.0.1:8000/}
 
-Abre tu navegador y entra a: \url{http://127.0.0.1:8000/}
+\subsection{2. Estructura final de carpetas}
+\begin{lstlisting}
+mis-gastos/
+├─ misgastos/
+├─ gastos/
+│  ├─ migrations/
+│  ├─ static/gastos/
+│  │  ├─ style.css
+│  │  └─ scrips.js
+│  ├─ templates/gastos/
+│  │  ├─ landing.html
+│  │  ├─ formulario.html
+│  │  └─ listado.html
+│  ├─ models.py, views.py, urls.py, admin.py, ...
+├─ Imagenes/
+│  ├─ Manual_MisGastos_Definitivo.tex
+│  ├─ logo puce.png
+│  ├─ Pagina Principal.png
+│  ├─ Formulario.png
+│  └─ Historial de gastos.png
+├─ manage.py
+├─ db.sqlite3
+\end{lstlisting}
 
-\section{Evidencias de funcionamiento}
-\caption{Página principal o landing}
+\section{¿Dónde colocar las imágenes de evidencia?}
+Guarda tus capturas de pantalla dentro de la carpeta \texttt{Imagenes/}. Ejemplo:
+\begin{lstlisting}
+Imagenes/
+├─ logo puce.png
+├─ Pagina Principal.png
+├─ Formulario.png
+├─ Historial de gastos.png
+\end{lstlisting}
+Luego, llama las imágenes así en tu manual:
+\begin{lstlisting}[language=TeX]
+\includegraphics[width=0.8\textwidth]{Imagenes/Formulario.png}
+\end{lstlisting}
+
+\section{Evidencia visual de funcionamiento}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\textwidth]{Pagina Principal.png}
-    \end{figure}
-    
-\caption{Formulario para agregar gastos}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{Formulario.png}
-    \end{figure}    
+    \includegraphics[width=0.85\textwidth]{Imagenes/Pagina Principal.png}
+    \caption{Página principal o landing}
+\end{figure}
 
-\caption{Historial de gastos}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{Historial de gastos.png}
-    \end{figure}
-    
+    \includegraphics[width=0.85\textwidth]{Imagenes/Formulario.png}
+    \caption{Formulario para agregar gastos}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{Imagenes/Historial de gastos.png}
+    \caption{Historial de gastos}
+\end{figure}
+
+\section{Solución de problemas comunes}
+\begin{itemize}
+    \item Si ves un error de pip: \texttt{python -m pip install --upgrade pip}
+    \item Si el servidor no inicia, verifica estar dentro del entorno virtual (\texttt{.venv} debe estar activado).
+    \item Si copiando código se rompe la indentación, corrígela en tu editor.
+    \item Si cambiaste modelos, ejecuta siempre:
+    \begin{lstlisting}[language=bash]
+    python manage.py makemigrations
+    python manage.py migrate
+    \end{lstlisting}
+    \item Si cambias código Python, reinicia el servidor con \texttt{CTRL+C} y luego \texttt{python manage.py runserver}
+\end{itemize}
+
+\section{Desactivar el entorno virtual}
+Cuando termines, puedes salir del entorno virtual con:
+\begin{lstlisting}[language=bash]
+deactivate
+\end{lstlisting}
+
+\section{¡Consejos para una réplica exitosa!}
+\begin{itemize}
+    \item Sigue el orden de los pasos, no saltes ninguno.
+    \item Usa siempre el entorno virtual.
+    \item Verifica la indentación al copiar código.
+    \item Si algo falla, lee con calma los mensajes de error, suelen indicar la línea o el archivo con el problema.
+    \item Haz pruebas después de cada cambio importante.
+\end{itemize}
+
 \section{Conclusión}
-
-La finalidad de este manual es servir como una guía clara para la correcta instalación, configuración y uso de la aplicación “Mis Gastos”. Cualquier usuario podrá implementarlo y verificar su funcionamiento siguiendo los pasos aquí detallados.
+Seguir este manual garantiza que cualquier usuario, sin importar su experiencia previa, pueda crear el sistema “Mis Gastos” tal como fue planeado, logrando una aplicación funcional, ordenada y visualmente agradable. Si surgen errores, revisa cuidadosamente cada paso, comando y archivo.
 
 \vfill
 \begin{center}
